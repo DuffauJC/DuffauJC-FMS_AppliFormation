@@ -75,38 +75,27 @@ public class MainApp {
 
 	/** Méthode qui recherche une formation dans la liste contenant un mot clé saisi au clavier */
 	public static void findFormation() {
-
 		displayFormations();
-		System.out.println("Entrée le nom du cours ex : Java");
-		String keyword = scan.next();
+		
+		System.out.println("Entrée le nom du cours ex : Spring");
+		
+		String keyword=scan.nextLine();
+		
+		System.out.println("keyword "+keyword);
 
-		String java="Java";
-		String javaAvance="Java-avancé";
-
-		/*
-		 * formationList.forEach((key,value)->{ if(value.get(0).contains(keyword)) {
-		 * addFormationCaddy(value); } });
-		 */
 		// comparaison de chaine  java/java avance
 
-		if (keyword==java) { formationList.forEach((key,value)->{
-			if(value.get(0).contains(java)) { 
-				addFormationCaddy(value); 
-				} 
-			});
+		for (Integer i : formationList.keySet()) {
 
-		} else if(keyword==javaAvance) { 
-			formationList.forEach((key,value)->{
-			if(value.get(0).contains(javaAvance)) {
-				
-				addFormationCaddy(value); } }); }
-		else
-			{ formationList.forEach((key,value)->{ 
-				if(value.get(0).contains(keyword)) {
-				addFormationCaddy(value); } 
-				}); 
+			for (String str : formationList.get(i)) {
+
+				if (str.contentEquals(keyword)) {
+					System.out.println(str);
+					//addFormationCaddy(formationList.get(i));
+				}
+
 			}
-
+		}
 	}
 
 	/** Méthode qui ajoute une formation au panier
@@ -114,16 +103,16 @@ public class MainApp {
 	public static void addFormationCaddy(ArrayList<String> value) {
 
 		int key=1;
-		// le caddy est-il vide ? si oui clé initialisé à 1 
-		if (caddyList.isEmpty()) {
-			caddyList.put(key, value);
+		System.out.println("valeur à ajouter"+value);
 
-			// sinon on récupère la taille du hashmap + incrémentation
-		}else {
-			key=caddyList.size()+1;
-			caddyList.put(key, value);
-			System.out.println("size :"+caddyList.size());
-		}
+		/*
+		 * // le caddy est-il vide ? si oui clé initialisé à 1 if (caddyList.size()==0)
+		 * { caddyList.put(key, value);
+		 * 
+		 * // sinon on récupère la taille du hashmap + incrémentation }else { key=0;
+		 * key=caddyList.size()+1; caddyList.put(key, value);
+		 * System.out.println("size :"+caddyList.size()); }
+		 */
 
 	}
 
@@ -171,11 +160,11 @@ public class MainApp {
 		formationList.put(1, new ArrayList<String>());
 		formationList.get(1).add("Java"); 	
 		formationList.get(1).add("20");		
-		formationList.get(1).add("Jaca SE 8 : Syntaxe et POO");
+		formationList.get(1).add("Java SE 8 : Syntaxe et POO");
 		formationList.get(1).add("3000");
 
 		formationList.put(2, new ArrayList<String>());
-		formationList.get(2).add("Java-avancé"); 	
+		formationList.get(2).add("Java avancé"); 	
 		formationList.get(2).add("20");	
 		formationList.get(2).add("Exceptions, fichiers, JDBC, thread");
 		formationList.get(2).add("5000");
