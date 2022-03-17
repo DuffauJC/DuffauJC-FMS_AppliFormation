@@ -37,34 +37,39 @@ public class MainApp {
 		System.out.println("Nous allons vous proposer une liste de formations actuellement disponible.");
 
 		int ans=0;
-
+		
 		while(ans != 4) {
 			// Affichage du menu
 			showMenu();
 
-			while(!scan.hasNextInt())	scan.next();
-			ans = scan.nextInt();
+			while(!scan.hasNextInt()) {
+					System.out.println("La valeur rentrée n'était pas du type voulu");
+			scan.next();
+			}
 
-			switch(ans) {
-			case 1 : // Lecture de la liste des formations
-				displayFormations();
-				break;
+				ans = scan.nextInt();
 
-			case 2 : // Ajouter une formation par nom du cours  ex : Java
-				findFormation();
-				break;
+				switch(ans) {
+				case 1 : // Lecture de la liste des formations
+					displayFormations();
+					break;
 
-			case 3 : 	// Afficher panier
-				displayCaddy();
-				break;
+				case 2 : // Ajouter une formation par nom du cours  ex : Java
+					findFormation();
+					break;
 
-			case 4 : // Exit application
-				System.out.println("Good Bye.");
-				break;
+				case 3 : 	// Afficher panier
+					displayCaddy();
+					break;
 
-			default : System.out.println("mauvaise saisie");
-			}			
-		}	
+				case 4 : // Exit application
+					System.out.println("Good Bye.");
+					break;
+
+				default : System.out.println("mauvaise saisie, votre choix : "+ans+" est inexistant dans le menu");
+				}	
+			}
+			
 
 	}
 	/** Méthode qui affiche le menu  */
@@ -100,7 +105,7 @@ public class MainApp {
 	 * @param value  */
 	public static void addFormationCaddy(ArrayList<String> value) {
 
-		
+
 		int key=1;
 		int size;
 		// le caddy est-il vide ?
@@ -119,18 +124,18 @@ public class MainApp {
 
 	/** Méthode qui affiche le panier  */
 	public static void displayCaddy() {
-		
+
 		System.out.println("Caddy.\n");
 		System.out.println("--------------------------------------------------------------------------------------------");
 		System.out.printf("| %-5s| %-15s | %-5s | %-40s |%-5s | %-2s |%n", "CHOIX", "COURS", "NB/JOURS", "DESCRIPTION"," PRIX","QTE");
 		System.out.println("|------|-----------------|----------|------------------------------------------|------|-----|");
 
-			for (int i = 1; i < caddyList.size()+1; i++) {
-				System.out.printf("| %-5s| %-15s | %-8s | %-40s | %-3s |  %-2s |%n",caddyList.get(i).get(0), 
-						caddyList.get(i).get(1),
-						caddyList.get(i).get(2),caddyList.get(i).get(3),caddyList.get(i).get(4),caddyList.get(i).get(5));
-			}			
-		
+		for (int i = 1; i < caddyList.size()+1; i++) {
+			System.out.printf("| %-5s| %-15s | %-8s | %-40s | %-3s |  %-2s |%n",caddyList.get(i).get(0), 
+					caddyList.get(i).get(1),
+					caddyList.get(i).get(2),caddyList.get(i).get(3),caddyList.get(i).get(4),caddyList.get(i).get(5));
+		}			
+
 		System.out.println("---------------------------------------------------------------------------------------------");
 
 	}
