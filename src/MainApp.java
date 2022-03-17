@@ -37,39 +37,39 @@ public class MainApp {
 		System.out.println("Nous allons vous proposer une liste de formations actuellement disponible.");
 
 		int ans=0;
-		
+
 		while(ans != 4) {
 			// Affichage du menu
 			showMenu();
 
 			while(!scan.hasNextInt()) {
-					System.out.println("La valeur rentrée n'était pas du type voulu");
-			scan.next();
+				System.out.println("La valeur rentrée n'était pas du type voulu");
+				scan.next();
 			}
 
-				ans = scan.nextInt();
+			ans = scan.nextInt();
 
-				switch(ans) {
-				case 1 : // Lecture de la liste des formations
-					displayFormations();
-					break;
+			switch(ans) {
+			case 1 : // Lecture de la liste des formations
+				displayFormations();
+				break;
 
-				case 2 : // Ajouter une formation par nom du cours  ex : Java
-					findFormation();
-					break;
+			case 2 : // Ajouter une formation par nom du cours  ex : Java
+				findFormation();
+				break;
 
-				case 3 : 	// Afficher panier
-					displayCaddy();
-					break;
+			case 3 : 	// Afficher panier
+				displayCaddy();
+				break;
 
-				case 4 : // Exit application
-					System.out.println("Good Bye.");
-					break;
+			case 4 : // Exit application
+				System.out.println("Good Bye.");
+				break;
 
-				default : System.out.println("mauvaise saisie, votre choix : "+ans+" est inexistant dans le menu");
-				}	
-			}
-			
+			default : System.out.println("mauvaise saisie, votre choix : "+ans+" est inexistant dans le menu");
+			}	
+		}
+
 
 	}
 	/** Méthode qui affiche le menu  */
@@ -85,19 +85,32 @@ public class MainApp {
 	public static void findFormation() {
 		displayFormationsChoix();
 
+		// array tampon 
+		ArrayList<ArrayList<String>> tmp = new ArrayList<>();
+
 		System.out.println("Entrée le choix du cours ex : 1");
 		String keyword=scan.next();
 
-		System.out.println("Entrée la quantité ex : 6");
-		String qty=scan.next();
-
 		formationChoix.forEach((key,value)->{	
-			if(value.get(0).contains(keyword)) { 
-				// ajout de la quantité dans l'arraylist avant ajout au caddy
-				value.add(qty);
-				addFormationCaddy(value);
+			if(value.get(0).contains(keyword)) {
+				// ajout la value dans le tampon
+				tmp.add(value);
 			}					
 		});
+		// le tampon est vide -> message
+		if (tmp.isEmpty()) {
+			System.out.println("La formation choisie n'existe pas dans la liste.");
+
+			// le tampon est plein.
+		} else {
+
+			// ajout de la quantité dans l'arraylist avant ajout au caddy
+			System.out.println("Entrée la quantité ex : 6");
+			String qty=scan.next();
+			tmp.get(0).add(qty);
+
+			addFormationCaddy(tmp.get(0));
+		}
 
 	}
 
@@ -105,21 +118,19 @@ public class MainApp {
 	 * @param value  */
 	public static void addFormationCaddy(ArrayList<String> value) {
 
-
 		int key=1;
 		int size;
+
 		// le caddy est-il vide ?
-		if (caddyList.isEmpty()){
-			caddyList.put(key,value);
-		}
-
-		// sinon on récupère la taille du hashmap + incrémentation } 
-		else { 
-			size=caddyList.size();
-			key=size+1; 
-			caddyList.put(key, value);
-
-		}
+		  if (caddyList.isEmpty()){ 
+			  caddyList.put(key,value); 
+			  }
+		  // sinon on récupère la taille du hashmap + incrémentation 
+		   else {
+		  size=caddyList.size(); 
+		  key=size+1; 
+		  caddyList.put(key, value); 
+		  } 
 	}
 
 	/** Méthode qui affiche le panier  */
