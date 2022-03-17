@@ -122,32 +122,40 @@ public class MainApp {
 		int size;
 
 		// le caddy est-il vide ?
-		  if (caddyList.isEmpty()){ 
-			  caddyList.put(key,value); 
-			  }
-		  // sinon on récupère la taille du hashmap + incrémentation 
-		   else {
-		  size=caddyList.size(); 
-		  key=size+1; 
-		  caddyList.put(key, value); 
-		  } 
+		if (caddyList.isEmpty()){ 
+			caddyList.put(key,value); 
+		}
+		// sinon on récupère la taille du hashmap + incrémentation 
+		else {
+			size=caddyList.size(); 
+			key=size+1; 
+			caddyList.put(key, value); 
+		} 
 	}
 
 	/** Méthode qui affiche le panier  */
 	public static void displayCaddy() {
 
-		System.out.println("Caddy.\n");
-		System.out.println("--------------------------------------------------------------------------------------------");
-		System.out.printf("| %-5s| %-15s | %-5s | %-40s |%-5s | %-2s |%n", "CHOIX", "COURS", "NB/JOURS", "DESCRIPTION"," PRIX","QTE");
-		System.out.println("|------|-----------------|----------|------------------------------------------|------|-----|");
+		System.out.println("Caddy\n");
+		if (caddyList.isEmpty()) {
+			System.out.println("---------------------");
+			System.out.println("Votre panier est vide");
+			System.out.println("---------------------");
+		} else {
 
-		for (int i = 1; i < caddyList.size()+1; i++) {
-			System.out.printf("| %-5s| %-15s | %-8s | %-40s | %-3s |  %-2s |%n",caddyList.get(i).get(0), 
-					caddyList.get(i).get(1),
-					caddyList.get(i).get(2),caddyList.get(i).get(3),caddyList.get(i).get(4),caddyList.get(i).get(5));
-		}			
+			System.out.println("--------------------------------------------------------------------------------------------");
+			System.out.printf("| %-5s| %-15s | %-5s | %-40s |%-5s | %-2s |%n", "CHOIX", "COURS", "NB/JOURS", "DESCRIPTION"," PRIX","QTE");
+			System.out.println("|------|-----------------|----------|------------------------------------------|------|-----|");
 
-		System.out.println("---------------------------------------------------------------------------------------------");
+			for (int i = 1; i < caddyList.size()+1; i++) {
+				System.out.printf("| %-5s| %-15s | %-8s | %-40s | %-3s |  %-2s |%n",caddyList.get(i).get(0), 
+						caddyList.get(i).get(1),
+						caddyList.get(i).get(2),caddyList.get(i).get(3),caddyList.get(i).get(4),caddyList.get(i).get(5));
+			}			
+
+			System.out.println("---------------------------------------------------------------------------------------------");
+		}
+
 
 	}
 
