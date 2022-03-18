@@ -144,7 +144,11 @@ public class MainApp {
 		} else {
 
 			System.out.println("--------------------------------------------------------------------------------------------");
+<<<<<<< HEAD
 			System.out.printf("| %-5s| %-15s | %-5s | %-40s |%-5s | %-2s |%n", "CHOIX", "COURS", "NB/JOURS", "DESCRIPTION"," PRIX","QTE");
+=======
+			System.out.printf("| %-5s| %-15s | %-5s | %-40s |%-5s | %-2s |%n", "NO.", "COURS", "NB/JOURS", "DESCRIPTION"," PRIX","QTE");
+>>>>>>> delCaddy
 			System.out.println("|------|-----------------|----------|------------------------------------------|------|-----|");
 
 			for (int i = 1; i < caddyList.size()+1; i++) {
@@ -156,6 +160,59 @@ public class MainApp {
 			System.out.println("---------------------------------------------------------------------------------------------");
 		}
 
+<<<<<<< HEAD
+=======
+		int rep=1;
+
+		while(rep != 3) {
+
+			System.out.println("--------------------------------------------------------");			
+			System.out.println("1 : Pour modifier une quantité.");
+			System.out.println("2 : Supprimer une formation.");
+			System.out.println("3 : Quitter le panier.");
+
+			while(!scan.hasNextInt()) {
+				System.out.println("La valeur rentrée n'était pas du type voulu");
+				scan.next();
+			}
+			rep = scan.nextInt();
+
+			switch(rep) {
+			case 1 : // Modification d'une quantité
+				System.out.println("Pour modifier une quantité taper son numéro.");
+				String keyword=scan.next();
+				caddyList.forEach((key,value)->{	
+					if(value.get(0).contains(keyword)) {
+						//System.out.println(value);
+
+						// ajout de la quantité dans l'arraylist avant ajout au caddy
+						System.out.println("Entrée la nouvelle quantité.");
+						String qty=scan.next();
+						value.set(5,qty);
+
+					}					
+				});
+				break;
+
+			case 2 : // Suppression d'une formation par son numéro
+				System.out.println("Pour supprimer une formation taper son numéro.");
+				keyword=scan.next();
+
+				// on supprime la cle si la valeur de la clé contient ( le scan)
+				caddyList.entrySet()
+				.removeIf(key -> key.getValue().contains(keyword));
+
+				break;
+
+			case  3: // Exit application
+				System.out.println("Sortie panier.");
+				break;
+
+			default : System.out.println("mauvaise saisie, votre choix : "+rep+" est inexistant dans le menu");
+			}	
+		}
+
+>>>>>>> delCaddy
 
 	}
 
