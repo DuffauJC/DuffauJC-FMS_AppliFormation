@@ -155,7 +155,7 @@ public class MainApp {
 
 			System.out.println("---------------------------------------------------------------------------------------------");
 		}
-		
+
 		int rep=1;
 
 		while(rep != 3) {
@@ -164,7 +164,7 @@ public class MainApp {
 			System.out.println("1 : Pour modifier une quantité.");
 			System.out.println("2 : Supprimer une formation.");
 			System.out.println("3 : Quitter le panier.");
-		
+
 			while(!scan.hasNextInt()) {
 				System.out.println("La valeur rentrée n'était pas du type voulu");
 				scan.next();
@@ -178,28 +178,34 @@ public class MainApp {
 				caddyList.forEach((key,value)->{	
 					if(value.get(0).contains(keyword)) {
 						//System.out.println(value);
-						
+
 						// ajout de la quantité dans l'arraylist avant ajout au caddy
 						System.out.println("Entrée la nouvelle quantité.");
 						String qty=scan.next();
 						value.set(5,qty);
-						
+
 					}					
 				});
 				break;
 
 			case 2 : // Suppression d'une formation par son numéro
-				
+				System.out.println("Pour supprimer une formation taper son numéro.");
+				keyword=scan.next();
+
+				// on supprime la cle si la valeur de la clé contient ( le scan)
+				caddyList.entrySet()
+				.removeIf(key -> key.getValue().contains(keyword));
+
 				break;
 
 			case  3: // Exit application
-				System.out.println("Good Bye.");
+				System.out.println("Sortie panier.");
 				break;
 
 			default : System.out.println("mauvaise saisie, votre choix : "+rep+" est inexistant dans le menu");
 			}	
 		}
-		
+
 
 	}
 
