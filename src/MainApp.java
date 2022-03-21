@@ -32,11 +32,11 @@ public class MainApp {
 
 
 
-/**
- * Main principal
- * 
- * @param args execution des fonctions principales
- */
+	/**
+	 * Main principal
+	 * 
+	 * @param args execution des fonctions principales
+	 */
 	public static void main(String[] args) {
 
 		insertFormationList();
@@ -92,7 +92,7 @@ public class MainApp {
 			case 6 : 	//Envie de jouer
 				game();
 				break;
-				
+
 			case 7 : // Exit application
 				System.out.println("Good Bye.");
 				break;
@@ -150,7 +150,7 @@ public class MainApp {
 	}
 
 	/** Méthode qui ajoute une formation au panier
-	*
+	 *
 	 * @param value , valeur à ajouter au panier
 	 */
 	public static void addFormationCaddy(ArrayList<String> value) {
@@ -174,58 +174,61 @@ public class MainApp {
 	public static void displayCaddy() {
 
 		caddy();
+		// caddy not empty, show menu
+		if (!caddyList.isEmpty()) {
 
-		int rep=1;
+			int rep=1;
 
-		while(rep != 3) {
+			while(rep != 3) {
 
-			System.out.println("--------------------------------------------------------");			
-			System.out.println("1 : Pour modifier une quantité.");
-			System.out.println("2 : Supprimer une formation.");
-			System.out.println("3 : Quitter le panier.");
+				System.out.println("1 : Pour modifier une quantité.");
+				System.out.println("2 : Supprimer une formation.");
+				System.out.println("3 : Quitter le panier.");
 
-			while(!scan.hasNextInt()) {
-				System.out.println("La valeur rentrée n'était pas du type voulu");
-				scan.next();
+				while(!scan.hasNextInt()) {
+					System.out.println("La valeur rentrée n'était pas du type voulu");
+					scan.next();
+				}
+				rep = scan.nextInt();
+
+				switch(rep) {
+				case 1 : // Modification d'une quantité
+					System.out.println("Pour modifier une quantité taper son numéro.");
+					String keyword=scan.next();
+					caddyList.forEach((key,value)->{	
+						if(value.get(0).contains(keyword)) {
+							//System.out.println(value);
+
+							// ajout de la quantité dans l'arraylist avant ajout au caddy
+							System.out.println("Entrée la nouvelle quantité.");
+							String qty=scan.next();
+							value.set(5,qty);
+							caddy();
+						}
+
+					});
+					break;
+
+				case 2 : // Suppression d'une formation par son numéro
+					System.out.println("Pour supprimer une formation taper son numéro.");
+					keyword=scan.next();
+
+					// on supprime la cle si la valeur de la clé contient ( le scan)
+					caddyList.entrySet()
+					.removeIf(key -> key.getValue().contains(keyword));
+
+					caddy();
+					break;
+
+				case  3: // Exit application
+					System.out.println("Sortie panier.");
+					break;
+
+				default : System.out.println("mauvaise saisie, votre choix : "+rep+" est inexistant dans le menu");
+				}	
 			}
-			rep = scan.nextInt();
-
-			switch(rep) {
-			case 1 : // Modification d'une quantité
-				System.out.println("Pour modifier une quantité taper son numéro.");
-				String keyword=scan.next();
-				caddyList.forEach((key,value)->{	
-					if(value.get(0).contains(keyword)) {
-						//System.out.println(value);
-
-						// ajout de la quantité dans l'arraylist avant ajout au caddy
-						System.out.println("Entrée la nouvelle quantité.");
-						String qty=scan.next();
-						value.set(5,qty);
-						caddy();
-					}
-
-				});
-				break;
-
-			case 2 : // Suppression d'une formation par son numéro
-				System.out.println("Pour supprimer une formation taper son numéro.");
-				keyword=scan.next();
-
-				// on supprime la cle si la valeur de la clé contient ( le scan)
-				caddyList.entrySet()
-				.removeIf(key -> key.getValue().contains(keyword));
-
-				caddy();
-				break;
-
-			case  3: // Exit application
-				System.out.println("Sortie panier.");
-				break;
-
-			default : System.out.println("mauvaise saisie, votre choix : "+rep+" est inexistant dans le menu");
-			}	
 		}
+
 
 	}
 	/** Méthode qui affiche le  caddy  */
@@ -242,33 +245,13 @@ public class MainApp {
 			System.out.println("|------|-----------------|----------|------------------------------------------|------|-----|");
 
 			for (int i = 1; i < caddyList.size()+1; i++) {
-				System.out.printf("| %-5s| %-15s | %-8s | %-40s | %-3s |  %-2s |%n",caddyList.get(i).get(0), 
-						caddyList.get(i).get(1),
-						caddyList.get(i).get(2),caddyList.get(i).get(3),caddyList.get(i).get(4),caddyList.get(i).get(5));
-			}			
 
-			System.out.println("---------------------------------------------------------------------------------------------");
-		}
+				ArrayList<ArrayList<String>> tmp = new ArrayList<>();
+				tmp.add(caddyList.get(i));
 
-	}
-
-	/** Méthode qui affiche la commande  */
-	public static void displayCommand() {
-
-		if (caddyList.isEmpty()) {
-			System.out.println("-----------------------------");
-			System.out.println("Vous n'avez pas de commande.");
-			System.out.println("-----------------------------");
-		} else {
-			System.out.println("Votre commande\n");
-			System.out.println("--------------------------------------------------------------------------------------------");
-			System.out.printf("| %-5s| %-15s | %-5s | %-40s |%-5s | %-2s |%n", "NO.", "COURS", "NB/JOURS", "DESCRIPTION"," PRIX","QTE");
-			System.out.println("|------|-----------------|----------|------------------------------------------|------|-----|");
-
-			for (int i = 1; i < caddyList.size()+1; i++) {
-				System.out.printf("| %-5s| %-15s | %-8s | %-40s | %-3s |  %-2s |%n",caddyList.get(i).get(0), 
-						caddyList.get(i).get(1),
-						caddyList.get(i).get(2),caddyList.get(i).get(3),caddyList.get(i).get(4),caddyList.get(i).get(5));
+				System.out.printf("| %-5s| %-15s | %-8s | %-40s | %-3s |  %-2s |%n",tmp.get(0).get(0), 
+						tmp.get(0).get(1),
+						tmp.get(0).get(2),tmp.get(0).get(3),tmp.get(0).get(4),tmp.get(0).get(5));
 			}			
 
 			System.out.println("---------------------------------------------------------------------------------------------");
@@ -285,6 +268,19 @@ public class MainApp {
 			System.out.printf("| %81s | %-2s |%n"," TOTAL COMMANDE",total);
 			System.out.println("---------------------------------------------------------------------------------------------");		
 
+		}
+
+	}
+
+	/** Méthode qui affiche la commande  */
+	public static void displayCommand() {
+
+		if (caddyList.isEmpty()) {
+			System.out.println("-----------------------------");
+			System.out.println("Vous n'avez pas de commande.");
+			System.out.println("-----------------------------");
+		} else {
+			caddy();
 			// si commande on peut valider
 			System.out.println("Valider la commande Y/N ?");
 			String rep = scan.next().toUpperCase();
@@ -296,6 +292,7 @@ public class MainApp {
 				System.out.println("Panier toujours valide");
 
 			}
+
 		}
 
 	}
@@ -347,69 +344,69 @@ public class MainApp {
 		System.out.println("-------------------------------------------------------------------------");
 
 	}
-	
+
 	/** Méthode qui permet de jouer */
 	private static void game() {
 		// initializing variables
-				boolean saisie;
-				int nbr=0;
-				int count=0;
-				int rep;
-				int one=1;
-				int random = 0;
+		boolean saisie;
+		int nbr=0;
+		int count=0;
+		int rep;
+		int one=1;
+		int random = 0;
 
-				System.out.println("Veux-tu jouer à mon jeux ? Tapes 1 pour jouer");
-				saisie = scan.hasNextInt();
+		System.out.println("Veux-tu jouer à mon jeux ? Tapes 1 pour jouer");
+		saisie = scan.hasNextInt();
 
-				// verif si c'est un chiffre de taper
-				if (saisie) {
-					rep = scan.nextInt();
+		// verif si c'est un chiffre de taper
+		if (saisie) {
+			rep = scan.nextInt();
 
-					if (rep == one) {
+			if (rep == one) {
 
-						// random
-						random=(int)(Math.random()*100)+1 ;
+				// random
+				random=(int)(Math.random()*100)+1 ;
 
-						// choose number between 1 and 100
-						System.out.println("Saisir un nombre entre 1 et 100");
+				// choose number between 1 and 100
+				System.out.println("Saisir un nombre entre 1 et 100");
+				nbr=scan.nextInt();
+
+				while (nbr != random) {
+
+					count++; 
+					if (nbr<random) {
+						System.out.println("Saisir une valeur plus grande"); 
 						nbr=scan.nextInt();
 
-						while (nbr != random) {
-
-							count++; 
-							if (nbr<random) {
-								System.out.println("Saisir une valeur plus grande"); 
-								nbr=scan.nextInt();
-
-							} else if(nbr>random) { System.out.println("Saisir une valeur plus petite");
-							nbr=scan.nextInt();
-							} 
-						} 
-						if(nbr==random) {
-							System.out.println("Vous avez trouvé en "+ count +" coups."); 
-						}
-					}else {
-						System.out.println("Good Bye");
-					}
-
-				} else {
-					System.out.println("La valeur rentrée n'était pas du type voulu");
+					} else if(nbr>random) { System.out.println("Saisir une valeur plus petite");
+					nbr=scan.nextInt();
+					} 
+				} 
+				if(nbr==random) {
+					System.out.println("Vous avez trouvé en "+ count +" coups."); 
 				}
+			}else {
+				System.out.println("Good Bye");
+			}
+
+		} else {
+			System.out.println("La valeur rentrée n'était pas du type voulu");
+		}
 	}
-	
+
 	/** Méthode qui initialise la liste des formations */
 	private static void insertFormationFutur() {
 		futur.put(1, new ArrayList<String>());
 		futur.get(1).add("Yoga"); 	
 		futur.get(1).add("20");		
 		futur.get(1).add("Le yoga pour les nuls.");
-		
+
 
 		futur.put(2, new ArrayList<String>());
 		futur.get(2).add("Poney"); 	
 		futur.get(2).add("45");	
 		futur.get(2).add("Le poney pour les nuls");
-	
+
 
 		futur.put(3, new ArrayList<String>());
 		futur.get(3).add("Sièste"); 	
